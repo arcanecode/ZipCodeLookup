@@ -1,6 +1,18 @@
+<#-------------------------------------------------------------------------------------------------
+  ZipCodeLookup - ZipCodeLookup.psm1
+  Author: Robert C. Cain | @ArcaneCode | arcane@arcanetc.com
+           http://arcanecode.me
 
+  This code is Copyright (c) 2015, 2020 Robert C. Cain. All rights reserved.
 
+  The code herein is for demonstration purposes. No warranty or guarantee
+  is implied or expressly granted.
 
+  This module may not be reproduced in whole or in part without the express
+  written consent of the author.
+
+  This contains the class definition, as well as references to the supporting functions.
+-----------------------------------------------------------------------------------------------#>
 
 
 
@@ -48,7 +60,7 @@ class ZipCodeLookup
     # Validate our zip code is correct length
     if ($this.ZipCode.Length -ne 5)
     {
-      $this.City = 'N/A'
+      $this.City = 'Invalid Zip - Zip Code must be five numbers'
       $this.State = 'N/A'
       throw 'Invalid Zip Code - Zip Code must be exactly five numbers'
       return
@@ -57,7 +69,7 @@ class ZipCodeLookup
     # Validate it is five numbers using a regular expression
     if ($($this.ZipCode -match "[0-9]{5}") -ne $true)
     {
-      $this.City = 'N/A'
+      $this.City = 'Invalid Zip - Zip Code may only have numbers'
       $this.State = 'N/A'
       throw 'Invalid Zip Code - Zip Code may only contain numbers'
       return

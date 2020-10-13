@@ -91,9 +91,18 @@ function Get-ZipCodeData()
   {
     foreach($zip in $ZipCodes)
     {
-      $zcl = [ZipCodeLookup]::new($UserID, $zip)
-      $zcl.Lookup()
+      try
+      {
+        $zcl = [ZipCodeLookup]::new($UserID, $zip)
+        $zcl.Lookup()
+      }
+      catch {
+        # Do Nothing, the object will set the city and state to indicate
+        # an error occurred
+      }
+
       return $zcl
+
     }
   }
 }

@@ -52,5 +52,6 @@ $myZipCode.Lookup($userID, '90210')
 # class, calling it's methods and properties are the same whether the module was loaded
 # using Import-Module or the USING MODULE statement.
 
-
-
+# The big difference is pipelining. The class is not pipeline enabled, so you'd have to
+# author a function to handle pipelining, or use the Get-ZipCodeData built into the module.
+ß

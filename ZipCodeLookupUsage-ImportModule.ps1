@@ -52,7 +52,7 @@ $myZip.Lookup($userID, '90210')
 "$($myZip.ZipCode) is located in $($myZip.City), $($myZip.State)"
 
 # Demonstrate the error when the zip code is not five characters
-$myZip.Lookup($userID, '')
+$myZip.Lookup($userID, '1')
 
 # Demonstrate the error when the zip code is not numeric
 $myZip.Lookup($userID, 'abcde')
@@ -80,7 +80,7 @@ $newZip = Get-ZipCodeData -UserID $userID -ZipCodes '84025'
 # still need to pass in the USPS User ID as a named parameter
 $zipArray = '90210', '35051', '84025'
 $zipResult = $zipArray | Get-ZipCodeData -UserID $userID
-$zipResult
+$zipResult | Select-Object -Property ZipCode, City, State
 
 # Use a for each to iterate over the result
 foreach ($z in $zipResult)
@@ -88,22 +88,13 @@ foreach ($z in $zipResult)
   "$($z.ZipCode) is located in $($z.City), $($z.State)"
 }
 
-# What about bad data in the pipe?
+# Earlier you saw the Lookup throw an error when bad data is passed in.
+# What about bad data coming in via the pipeline?
 $zipArray = '90210','1', '35051', 'abcde', '84025', '99999'
-$zipResult = $zipArray | Get-ZipCodeData -UserID $userID
-$zipResult
+$zipResultBad = $zipArray | Get-ZipCodeData -UserID $userID
 
-# Suppress the red errors by catching but doing nothing
-try
-{
-  $zipArray = '90210','1', '35051', 'abcde', '84025', '99999'
-  $zipResult = $zipArray | Get-ZipCodeData -UserID $userID
-}
-catch
-{
-  # Do Nothing
-}
-finally
-{
-  $zipResult
-}
+$zipResultBad | Select-Object -Property ZipCode, City, State
+
+# The above worked because the Get-ZipCodeData function has error handling in it.
+# It captures the error throw by lookup then just returns the objects. Each object
+# has values of N/A to indicate the zip code is invalid.
