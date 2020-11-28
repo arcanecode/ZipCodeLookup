@@ -54,4 +54,3 @@ $myZipCode.Lookup($userID, '90210')
 
 # The big difference is pipelining. The class is not pipeline enabled, so you'd have to
 # author a function to handle pipelining, or use the Get-ZipCodeData built into the module.
-ß

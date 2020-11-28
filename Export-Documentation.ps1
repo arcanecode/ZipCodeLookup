@@ -23,12 +23,12 @@
 -----------------------------------------------------------------------------------------------#>
 
 # Import PlatyPS into memory
-Install-Module PlatyPS       # Should only need to run this once
+# Install-Module PlatyPS       # Should only need to run this once
 Import-Module PlatyPS
 
 # Before running, you need to have the most current version of ZipCodeLookup loaded in memory
 Remove-Module ZipCodeLookup -ErrorAction SilentlyContinue
-Import-Module .\ZipCodeLookup
+Import-Module ./ZipCodeLookup
 
 <#-------------------------------------------------------------------------------------------------
   Now generate the documentation. PlatyPS New-MarkdownHelp cmdlet will read the comment based
@@ -95,7 +95,7 @@ New-MarkdownHelp -Module ZipCodeLookup `
 -----------------------------------------------------------------------------------------------#>
 
 # Get a list of all the MD files
-$filePath = Get-ChildItem -Path $docPath | Where-Object {$_.Extension -eq '.md'} 
+$filePath = Get-ChildItem -Path $docPath | Where-Object {$_.Extension -eq '.md'}
 
 # Create a function to do the cleanup. This will make it easier to transfer this code to
 # future projects.

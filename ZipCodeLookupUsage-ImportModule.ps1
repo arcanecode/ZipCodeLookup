@@ -27,6 +27,9 @@
 Remove-Module ZipCodeLookup -ErrorAction SilentlyContinue
 Import-Module ./ZipCodeLookup -Force
 
+Get-Help New-ZipCodeLookup
+Get-Help New-ZipCodeLookup -Full
+
 #------------------------------------------------------------------------------------------------
 # In this first section we will create a new instance of the class and
 # work with it

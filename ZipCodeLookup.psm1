@@ -1,5 +1,6 @@
 <#-------------------------------------------------------------------------------------------------
-  ZipCodeLookup - ZipCodeLookup.psm1
+  Everyday PowerShell 7 for Developers
+
   Author: Robert C. Cain | @ArcaneCode | arcane@arcanetc.com
            http://arcanecode.me
 
@@ -79,7 +80,6 @@ class ZipCodeLookup
     $urlBase = 'http://production.shippingapis.com/ShippingAPI.dll?API=CityStateLookup&XML='
 
     # Format the data we need to pass into the API
-    # NOTE! WHERE YOU SEE ALL X's IN THE USER ID, REPLACE WITH YOUR USER ID
     $urlXML = @"
     <CityStateLookupRequest%20USERID="$($this.UserID)">
       <ZipCode ID= "0">
@@ -90,7 +90,9 @@ class ZipCodeLookup
 
     # Combine into the URL we will call
     $url = $urlBase + $urlXML
-    $url
+
+    # Call the rest api
+    [xml]$response = Invoke-RestMethod $url
 
      <#
        Note: This is what the response XML looks like
@@ -105,9 +107,6 @@ class ZipCodeLookup
          </CityStateLookupResponse>
 
      #>
-
-    # Call the rest api
-    [xml]$response = Invoke-RestMethod $url
 
     # If the API doesn't find the passed in zips, it returns
     # empty values. Validate good data came back and if so copy

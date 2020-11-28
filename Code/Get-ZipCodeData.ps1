@@ -96,7 +96,8 @@ function Get-ZipCodeData()
         $zcl = [ZipCodeLookup]::new($UserID, $zip)
         $zcl.Lookup()
       }
-      catch {
+      catch
+      {
         # Do Nothing, the object will set the city and state to indicate
         # an error occurred
       }
